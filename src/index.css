@@ -1,13 +1,52 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.root,
+#root,
+#docs-root {
+  --primary-red: hsl(0, 100%, 74%);
+  --primary-green: hsl(154, 59%, 51%);
+
+  --accent-blue: hsl(248, 32%, 49%);
+
+  --dark-blue: hsl(249, 10%, 26%);
+  --grayish: hsl(246, 25%, 77%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer utilities {
+  .border-1 {
+    border-width: 1px;
+  }
+
+  .max-width {
+    max-width: 1109px;
+  }
+
+  .text-width {
+    width: 482px;
+  }
+  
+  .size {
+    background-size: 20px;
+  }
+
+  .positioning {
+    background-position: 93% 50%;
+  }
+
+}
+
+@layer components {
+  .input {
+    @apply w-full p-4 placeholder:font-bold outline-none rounded-md border-1 border-grayish focus:border-black font-bold;
+  }
+
+  .input-error {
+    @apply w-full p-4 outline-none placeholder:text-primaryRed rounded-md border-1 border-primaryRed focus:border-primaryRed font-bold;
+  }
+
+  .icon {
+    @apply bg-errorIcon bg-no-repeat size positioning;
+  }
 }
