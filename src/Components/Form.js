@@ -2,7 +2,7 @@ import React from "react";
 import useInput from "../hooks/user-inputs";
 
 const Form = () => {
-  const {
+  let {
     value: enteredName,
     isValid: enteredNameIsValid,
     hasError: nameInputHasError,
@@ -11,7 +11,7 @@ const Form = () => {
     reset: resetNameInput,
   } = useInput((value) => value.trim() !== "");
 
-  const {
+  let {
     value: enteredlastName,
     isValid: enteredLastNameIsValid,
     hasError: lastNameHasError,
@@ -20,7 +20,7 @@ const Form = () => {
     reset: resetLastName,
   } = useInput((value) => value.trim() !== "");
 
-  const {
+  let {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
     hasError: emailHasError,
@@ -29,7 +29,7 @@ const Form = () => {
     reset: resetEmailInput,
   } = useInput((value) => value.includes("@"));
 
-  const {
+  let {
     value: enteredPassword,
     isValid: enteredPasswordisValid,
     hasError: passwordHasError,
@@ -37,6 +37,41 @@ const Form = () => {
     inputBlurHandler: passwordBlurHandler,
     reset: resetPasswordInput,
   } = useInput((value) => value.length > 6);
+
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    nameBlurHandler();
+    lastNameBlurHandler();
+    emailBlurHandler();
+    passwordBlurHandler();
+
+    if (!enteredNameIsValid) {
+      nameInputHasError = true;
+      return;
+    }
+
+    if (!enteredLastNameIsValid) {
+      lastNameHasError = true
+      return
+    }
+
+    if (!enteredEmailIsValid) {
+      emailHasError = true
+      return
+    }
+
+    if (!enteredPasswordisValid) {
+      passwordHasError = true
+      return
+    }
+
+    resetEmailInput();
+    resetLastName();
+    resetPasswordInput();
+    resetNameInput();
+  };
 
   const nameInputclasses = nameInputHasError ? "input-error icon" : "input";
   const nameInputPlaceHolder = nameInputHasError ? "" : "First Name";
@@ -52,26 +87,13 @@ const Form = () => {
   const passwordClasees = passwordHasError ? "input-error icon" : "input";
   const passwordPlaceHolder = passwordHasError ? "" : "password";
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-
-    if (!enteredNameIsValid && !enteredLastNameIsValid && !enteredEmailIsValid && !enteredPasswordisValid) {
-      return     
-    }
-
-    resetEmailInput()
-    resetLastName()
-    resetPasswordInput()
-    resetNameInput()
-  };
-
   return (
     <div className="mt-12 md:mt-0">
-      <span className="block py-6 px-20 w-full text-center bg-accentBlue text-white rounded-md">
+      <span className="block py-6 px-20 w-full text-center bg-accentBlue text-white rounded-md shadow-custom">
         <strong>Try it free 7 days</strong> then $20/mo. thereafter
       </span>
       <form
-        className="my-8 w-full text-center bg-white p-6 rounded-md"
+        className="my-8 w-full text-center bg-white p-6 rounded-md shadow-custom"
         onSubmit={submitHandler}
       >
         <div className="my-4">
@@ -134,7 +156,7 @@ const Form = () => {
             </p>
           )}
         </div>
-        <button className="p-4 bg-primaryGreen font-bold text-white w-full rounded-md uppercase tracking-wider">
+        <button className="p-4 bg-primaryGreen font-bold text-white w-full rounded-md uppercase tracking-wider hover:opacity-75">
           Claim your free trial
         </button>
         <span className="py-2 block text-grayish w-10/12 mx-auto">

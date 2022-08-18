@@ -16,6 +16,9 @@ module.exports = {
         grayish: "var(--grayish)",
       },
     },
+    fontFamily: {
+      heading: ["Poppins", "sans-serif"],
+    },
   },
   plugins: [],
 };
